@@ -42,6 +42,14 @@ const authMiddleware = (req, res, next) => {
     }
 };
 
+// A simple GET route for testing the server
+app.get('/test', (req, res) => {
+  res.status(200).json({ 
+    status: 'success', 
+    message: 'Server is running and healthy!' 
+  });
+});
+
 app.use('/api', adminRoutes);
 // == Product Routes ==
 app.get('/api/products', async (req, res) => {
