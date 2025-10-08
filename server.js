@@ -46,7 +46,7 @@ const authMiddleware = (req, res, next) => {
 app.get('/test', (req, res) => {
   res.status(200).json({ 
     status: 'success', 
-    message: 'Server is running and healthy!' 
+    message: 'Server is running and healthy' 
   });
 });
 
