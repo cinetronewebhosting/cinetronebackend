@@ -1,34 +1,34 @@
 const nodemailer = require("nodemailer");
 require("dotenv").config();
 
-// Brevo transporter configuration
+// Zoho Zepto transporter configuration
 const transporter = nodemailer.createTransport({
-  host: "smtp-relay.brevo.com",
-  port: 465,
-  secure: true, // use SSL
+  host: "smtp.zeptomail.in", // <-- Changed
+  port: 2525,                 // <-- Changed
+  secure: false,             // <-- Changed (for port 587)
   auth: {
-    user: "97249b003@smtp-brevo.com", // The email you use to log in to Brevo
-    pass: process.env.BREVO_SMTP_KEY, // Your Brevo SMTP key stored in .env
+    user: "emailapikey",       // <-- Changed
+    pass: process.env.ZEPTO_API_KEY, // <-- Changed to use environment variable
   },
 });
 
 /**
- * Sends an email using Nodemailer with Brevo.
+ * Sends an email using Nodemailer with Zoho Zepto.
  * @param {string} to - The recipient's email address.
  * @param {string} subject - The subject of the email.
- * @param {string} text - The plain text body of the email.
+ * @param {string|html} body - The body of the email (can be plain text or HTML).
  */
-const sendEmail = async (to, subject, text) => {
+const sendEmail = async (to, subject, body) => {
   const mailData = {
-    // IMPORTANT: The 'from' address must be from a domain you verified in Brevo.
-    from: '"Cinetrone Authenticator" <contact@cinetrone.com>',
+    from: '"Cinetrone Authenticator" <contact@cinetrone.com>', // Your verified sender address
     to: to,
     subject: subject,
-    text: text,
+    html: body, // Using html to allow for rich text emails
   };
+
   try {
     const result = await transporter.sendMail(mailData);
-    console.log("Email sent successfully via Brevo!", result);
+    console.log("Email sent successfully via Zoho Zepto!", result);
     return result;
   } catch (error) {
     console.error("Error sending email:", error);
